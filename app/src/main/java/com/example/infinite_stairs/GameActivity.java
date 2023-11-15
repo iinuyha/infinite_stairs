@@ -8,12 +8,15 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 public class GameActivity extends AppCompatActivity {
 
     private ProgressBar progressBar;
     private int progressValue = 100; // 초기 값 설정
+    private ImageView backgroundImageView;
+    private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,10 +24,11 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
 
         progressBar = findViewById(R.id.progressBar);
+        backgroundImageView = findViewById(R.id.backgroundImageView);
 
         // 1초마다 ProgressBar를 업데이트하는 Handler 설정
-        final Handler handler = new Handler(Looper.getMainLooper());
-        handler.postDelayed(new Runnable() {
+        this.handler = new Handler(Looper.getMainLooper());
+        this.handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 // ProgressBar 갱신
@@ -44,8 +48,8 @@ public class GameActivity extends AppCompatActivity {
             }
         }, 500); // 초기 0.5초 후에 시작
 
-        ImageButton startButton = findViewById(R.id.StopButton);
-        startButton.setOnClickListener(new View.OnClickListener() {
+        ImageButton stopButton = findViewById(R.id.StopButton);
+        stopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // 일시정지 버튼 누르면 팝업창 뜨도록 여기 기능 구현하기
@@ -57,6 +61,8 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // 왼쪽 아래 방향 바꾸는 버튼 누르면 실행되는 기능
+                moveBackgroundDown(); // 버튼을 누를 때마다 배경이 내려감
+                restartProgress();  // 버튼을 누를 때마다 프로그레스바가 100으로 꽉 참
             }
         });
 
@@ -65,15 +71,38 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // 오른쪽 아래 위로 올라가는 버튼 누르면 실행되는 기능
+                moveBackgroundDown(); // 버튼을 누를 때마다 배경이 내려감
+                restartProgress();  // 버튼을 누를 때마다 프로그레스바가 100으로 꽉 참
             }
         });
     }
 
-    // 수정: ResultActivity로 이동하는 메소드 추가
+
+    // 프로그레스바의 값을 100으로 초기화하는 메서드
+    private void restartProgress() {
+        progressValue = 100;
+    }
+
+
+    // ResultActivity로 이동하는 메서드
     private void goToResultActivity() {
         Intent intent = new Intent(this, ResultActivity.class);
         startActivity(intent);
-        // 이후 필요에 따라 finish()를 호출하여 현재 Activity를 종료할 수 있습니다.
-        // finish();
     }
+
+    // 배경을 아래로 이동시키는 메서드
+    private void moveBackgroundDown() {
+        final int moveDistance = 100; // 이동 거리 (임의의 값)
+        final int moveDuration = 1000; // 이동 시간 (1초)
+
+        // 배경을 이동하기 위한 Handler 설정
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // ImageView의 위치를 변경하여 화면을 이동하는 효과를 낼 수 있음
+                backgroundImageView.setY(backgroundImageView.getY() + moveDistance);
+            }
+        }, moveDuration);
+    }
+
 }
