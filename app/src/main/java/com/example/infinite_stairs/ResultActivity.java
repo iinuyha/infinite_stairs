@@ -9,6 +9,7 @@ import android.content.Intent;
 
 public class ResultActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
