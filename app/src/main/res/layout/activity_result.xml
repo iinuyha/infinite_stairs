@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ResultActivity">
+    tools:context=".ResultActivity"
+    android:orientation="vertical">
 
     <ImageView
         android:layout_width="match_parent"
@@ -46,8 +47,9 @@
         app:srcCompat="@drawable/gameover" />
 
     <ImageView
+        android:id="@+id/score"
         android:layout_width="80dp"
-        android:layout_height="30dp"
+        android:layout_height="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,15 +60,16 @@
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_gravity="center"
         android:fontFamily="@font/dunggeunmo"
         android:text="123"
         android:textColor="#FFFFFF"
-        android:textSize="60dp"
-        tools:layout_editor_absoluteX="160dp"
-        tools:layout_editor_absoluteY="311dp"
-        tools:ignore="MissingConstraints" />
+        android:textSize="60sp"
+        app:layout_constraintTop_toBottomOf="@+id/score"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="UnknownId" />
 
     <ImageButton
         android:id="@+id/homeButton"
