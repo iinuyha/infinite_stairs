@@ -24,8 +24,8 @@ import java.util.Random;
 import team.Block;
 
 public class GameActivity extends AppCompatActivity {
-    private final int ROWS = 15;
-    private final int COLS = 7;
+    private final int ROWS = 19;
+    private final int COLS = 9;
 
     private ProgressBar progressBar;
     private int progressValue = 100; // 초기 값 설정
@@ -63,7 +63,7 @@ public class GameActivity extends AppCompatActivity {
 
         ///////////////////////////////////////////////////////////
 
-        gameState = new GameState(15, 7);
+        gameState = new GameState(ROWS, COLS);
         gameState.initGameObjects();  //초기 블록 설정
         drawView = new DrawView(this, gameState);//gameState가 State여야 그림을 그림
         drawView.invalidate();
@@ -95,7 +95,7 @@ public class GameActivity extends AppCompatActivity {
                     handler.postDelayed(this, 1000); // 1초마다 갱신
                 } else {
                     // progressValue가 0 이하일 때, ResultActivity로 이동
-                    goToResultActivity();
+                    // goToResultActivity();
                 }
             }
         }, 500); // 초기 0.5초 후에 시작
