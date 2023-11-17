@@ -38,7 +38,7 @@ public class game extends AppCompatActivity {
         gameState = new GameState(15, 7);
         drawView = new DrawView(this, gameState);//gameState가 State여야 그림을 그림
         //초기 화면 설정
-        gameState.initGameObjects();  //초기 블록 설정
+        gameState.initBlock();  //초기 블록 설정
         drawView.invalidate();
 
 

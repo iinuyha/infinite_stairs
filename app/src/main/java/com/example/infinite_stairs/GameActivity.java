@@ -25,7 +25,7 @@ import team.Block;
 
 public class GameActivity extends AppCompatActivity {
     private final int ROWS = 19;
-    private final int COLS = 9;
+    private final int COLS = 40;
 
     private ProgressBar progressBar;
     private int progressValue = 100; // 초기 값 설정
@@ -64,7 +64,7 @@ public class GameActivity extends AppCompatActivity {
         ///////////////////////////////////////////////////////////
 
         gameState = new GameState(ROWS, COLS);
-        gameState.initGameObjects();  //초기 블록 설정
+        gameState.initBlock();  //초기 블록 설정
         drawView = new DrawView(this, gameState);//gameState가 State여야 그림을 그림
         drawView.invalidate();
 
@@ -112,7 +112,8 @@ public class GameActivity extends AppCompatActivity {
         changeButton.setOnClickListener(new View.OnClickListener() { // 수정: changeButton에 대한 클릭 리스너 추가
             @Override
             public void onClick(View view) {
-
+                gameState.updateBlock(0);
+                drawView.invalidate();
                 // 왼쪽 아래 방향 바꾸는 버튼 누르면 실행되는 기능
                 moveBackgroundDown(); // 버튼을 누를 때마다 배경이 내려감
                 restartProgress();  // 버튼을 누를 때마다 프로그레스바가 100으로 꽉 참
@@ -123,7 +124,8 @@ public class GameActivity extends AppCompatActivity {
         upButton.setOnClickListener(new View.OnClickListener() { // 수정: upButton에 대한 클릭 리스너 추가
             @Override
             public void onClick(View view) {
-
+                gameState.updateBlock(1);
+                drawView.invalidate();
                 // 오른쪽 아래 위로 올라가는 버튼 누르면 실행되는 기능
                 moveBackgroundDown(); // 버튼을 누를 때마다 배경이 내려감
                 restartProgress();  // 버튼을 누를 때마다 프로그레스바가 100으로 꽉 참

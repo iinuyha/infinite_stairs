@@ -20,7 +20,7 @@ import android.view.View;
 
 public class DrawView extends View {
     private final int ROWS = 19;
-    private final int COLS = 9;
+    private final int COLS = 40;
     int yOffset; //이거 수정해야할듯
     GameState gameState;
     Bitmap BlockBitmap;
