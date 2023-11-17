@@ -1,22 +1,57 @@
 package com.example.infinite_stairs;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import java.util.Random;
+
+import team.Block;
 
 public class GameActivity extends AppCompatActivity {
+    private final int ROWS = 15;
+    private final int COLS = 7;
 
     private ProgressBar progressBar;
     private int progressValue = 100; // 초기 값 설정
     private ImageView backgroundImageView;
     private Handler handler;
+
+
+    //////////////////////////////////////////////////////////////////////
+    DrawView drawView;
+    GameState gameState;
+    RelativeLayout gameButtons;
+    Button left;
+    Button right;
+    Button rotateAc;
+    FrameLayout game;
+    Button pause;
+    TextView score;
+    Button difficultyToggle;
+    Runnable loop;
+    int delayFactor;
+    int delay;
+    int delayLowerLimit;
+
+
+    public GameActivity() {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +60,23 @@ public class GameActivity extends AppCompatActivity {
 
         progressBar = findViewById(R.id.progressBar);
         backgroundImageView = findViewById(R.id.backgroundImageView);
+
+        ///////////////////////////////////////////////////////////
+
+        gameState = new GameState(15, 7);
+        gameState.initGameObjects();  //초기 블록 설정
+        drawView = new DrawView(this, gameState);//gameState가 State여야 그림을 그림
+        drawView.invalidate();
+
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"})
+        ConstraintLayout frameLayout = findViewById(R.id.my_constraint_layout);
+        frameLayout.addView(drawView);
+
+
+
+
+
+        //createBlocks();
 
         // 1초마다 ProgressBar를 업데이트하는 Handler 설정
         this.handler = new Handler(Looper.getMainLooper());
@@ -60,6 +112,7 @@ public class GameActivity extends AppCompatActivity {
         changeButton.setOnClickListener(new View.OnClickListener() { // 수정: changeButton에 대한 클릭 리스너 추가
             @Override
             public void onClick(View view) {
+
                 // 왼쪽 아래 방향 바꾸는 버튼 누르면 실행되는 기능
                 moveBackgroundDown(); // 버튼을 누를 때마다 배경이 내려감
                 restartProgress();  // 버튼을 누를 때마다 프로그레스바가 100으로 꽉 참
@@ -70,12 +123,21 @@ public class GameActivity extends AppCompatActivity {
         upButton.setOnClickListener(new View.OnClickListener() { // 수정: upButton에 대한 클릭 리스너 추가
             @Override
             public void onClick(View view) {
+
                 // 오른쪽 아래 위로 올라가는 버튼 누르면 실행되는 기능
                 moveBackgroundDown(); // 버튼을 누를 때마다 배경이 내려감
                 restartProgress();  // 버튼을 누를 때마다 프로그레스바가 100으로 꽉 참
             }
         });
     }
+
+
+
+    ///////////////////////////////////////////////////////////
+
+
+
+
 
 
     // 프로그레스바의 값을 100으로 초기화하는 메서드
