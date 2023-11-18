@@ -5,7 +5,8 @@ package com.example.infinite_stairs;
 
 public class GameState { //수정 : public으로 수정
     private final int ROWS = 19;
-    private final int COLS = 40;
+    private final int COLS = 41;
+    private final int INIT_VALUE = 20;
 
     boolean status; //죽었는지 살았는지
     int score;  //점수
@@ -41,15 +42,19 @@ public class GameState { //수정 : public으로 수정
         // 시작 지점 2,10
         int a = 0;
         int under_block = 5; //추후에 생성될 블록 개수임 상수처럼 쓰려고 변수 만들었음
-        setBlockState(20, ROWS-under_block, BasicBlockState.ON_BLOCK); //10행 2열이 시작점
-        setBlockState(19, ROWS-under_block-1, BasicBlockState.ON_BLOCK); //시작점과 그 다음점은 고정해야함(rotate할 때 부호 때매)
-        int saveColValue = 19;
+        setBlockState(INIT_VALUE, ROWS-under_block, BasicBlockState.ON_BLOCK); //10행 2열이 시작점
+        setBlockState(INIT_VALUE - 1, ROWS-under_block-1, BasicBlockState.ON_BLOCK); //시작점과 그 다음점은 고정해야함(rotate할 때 부호 때매)
+        int saveColValue = INIT_VALUE - 1;
         for (int i = ROWS - under_block -2; i >= 0; i--) {
             a = Math.random() > 0.5 ? 1 : -1;
-            if(!isValidCoordinate(saveColValue + a)){  //유효하지 않으면 1 추가
-                a *= -1;
+
+            if(isValidCoordinateForCreation(saveColValue + a) == -1){  //유효하지 않으면 (13~27값이 아니면) // 이 부분 함수 바꾸기 함수는 범위 줄인 값 들어가게 INIT_VALUE -7부터 +7까지면 오류 없음
+                a = -1;
+            }else if(isValidCoordinateForCreation(saveColValue + a) == 1) { //작으면 -1
+                a = 1;
             }
             setBlockState(saveColValue + a, i, BasicBlockState.ON_BLOCK);
+
             saveColValue += a;
         }
     }
@@ -75,11 +80,16 @@ public class GameState { //수정 : public으로 수정
         }
 
         //이부분 안됨 *수정필요*
-        int a = 0;
-        for(int i = 0; i < ROWS; i++){ //ROWS가 아니라 COLS일수도.,.,,.
-            if(board[i][1].state == BasicBlockState.ON_BLOCK){ //두번째 열 불륵 찾고 그 대각선에 블록 생성
+        int a = 1;
+        for(int i = 0; i < COLS ; i++){ //ROWS가 아니라 COLS일수도.,.,,.
+            if(board[1][i].state == BasicBlockState.ON_BLOCK){ //두번째 열 불륵 찾고 그 대각선에 블록 생성
                 a = Math.random() > 0.5 ? 1 : -1;
-                setBlockState(i+a, 0, BasicBlockState.ON_BLOCK);
+                if(isValidCoordinateForCreation(i + a) == -1){  // 유효값보다 크면 a는 무조건 -1
+                    a = -1;
+                }else if(isValidCoordinateForCreation(i + a) == 1) { //유효값보다 작으면 a는 무조건 1
+                    a = 1;
+                }
+                setBlockState(i + a, 0, BasicBlockState.ON_BLOCK);
             }
         } //첫번째줄에 랜덤으로 블록 생성
 
@@ -104,11 +114,20 @@ public class GameState { //수정 : public으로 수정
         return (row >= 0 && row < ROWS && col >= 0 && col < COLS);
     }
 
-    private boolean isValidCoordinate(int col) {
-        return (col >= 0 && col < COLS );
-    } //일단 배열 따라 오면서 계단 내려오며 배열 초과하는 경우 방지하려 만들어놨는데 어떻게 방지해야할지 모르곘음 일단 만듦
 
-
+    //이 부분 함수 바꾸기 함수는 범위 줄인 값 들어가게 INIT_VALUE -7부터 +7까지면 오류 없음
+    private int isValidCoordinateForCreation(int col) {
+        if (col < INIT_VALUE - 7) {  //더 작으면 +1(+1해야하니까 +1로 설정했음)
+            return 1;
+        }
+        if (col >= INIT_VALUE - 7 && col <= INIT_VALUE + 7) { //더 크면 -1해야하니까 -1로 설정했음
+            return 0;
+        }
+        if (col > INIT_VALUE + 7) { //더 크면 -1해야하니까 -1로 설정했음
+            return -1;
+        }
+        return 0;
+    }
 
 
 
