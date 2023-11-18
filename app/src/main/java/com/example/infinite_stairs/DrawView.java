@@ -17,6 +17,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.View;
+//clear 꼭 있어야하나? 한번 없애보기
 
 public class DrawView extends View {
     private final int ROWS = 19;
@@ -43,8 +44,8 @@ public class DrawView extends View {
                 if (matrix[i][j].state != BasicBlockState.ON_BLOCK)
                     continue; //현재 상태 ON_EMPTY면 그냥 넘어감(블록 있을 때만 그림)
 
-                int adjustedX =  j * BlockBitmap.getWidth();   //Clear left 값
-                int adjustedY = 120 + i * BlockBitmap.getHeight() + 2;
+                int adjustedX =  -3600 + j * BlockBitmap.getWidth();   //Clear left 값
+                int adjustedY = 250 + i * BlockBitmap.getHeight() + 2;
                 canvas.drawBitmap(BlockBitmap, adjustedX, adjustedY, null);
             } //이걸 계속 불러와서 ON_EMPTY로 사각형이 비어있지 않으면 계속 그리나봄
         }

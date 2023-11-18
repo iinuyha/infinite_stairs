@@ -1,6 +1,9 @@
 package com.example.infinite_stairs;
 
-class GameState {
+//bitmap 아예 배열 시작점을 15, 20으로 두고 배열 위치를 옮기기 => 유효성 문제 해결
+//20에서 0.5확률로 -1이나 +1 연산이 실행될때, 20에서 40을 초과하거나 음수가 될 확률 2%됨
+
+public class GameState { //수정 : public으로 수정
     private final int ROWS = 19;
     private final int COLS = 40;
 
@@ -38,9 +41,9 @@ class GameState {
         // 시작 지점 2,10
         int a = 0;
         int under_block = 5; //추후에 생성될 블록 개수임 상수처럼 쓰려고 변수 만들었음
-        setBlockState(ROWS-under_block, 3, BasicBlockState.ON_BLOCK); //10행 2열이 시작점
-        setBlockState(ROWS-under_block-1, 2, BasicBlockState.ON_BLOCK); //시작점과 그 다음점은 고정해야함(rotate할 때 부호 때매)
-        int saveColValue = 2;
+        setBlockState(20, ROWS-under_block, BasicBlockState.ON_BLOCK); //10행 2열이 시작점
+        setBlockState(19, ROWS-under_block-1, BasicBlockState.ON_BLOCK); //시작점과 그 다음점은 고정해야함(rotate할 때 부호 때매)
+        int saveColValue = 19;
         for (int i = ROWS - under_block -2; i >= 0; i--) {
             a = Math.random() > 0.5 ? 1 : -1;
             if(!isValidCoordinate(saveColValue + a)){  //유효하지 않으면 1 추가
@@ -70,6 +73,8 @@ class GameState {
                 }
             }
         }
+
+        //이부분 안됨 *수정필요*
         int a = 0;
         for(int i = 0; i < ROWS; i++){ //ROWS가 아니라 COLS일수도.,.,,.
             if(board[i][1].state == BasicBlockState.ON_BLOCK){ //두번째 열 불륵 찾고 그 대각선에 블록 생성
@@ -99,8 +104,8 @@ class GameState {
         return (row >= 0 && row < ROWS && col >= 0 && col < COLS);
     }
 
-    private boolean isValidCoordinate(int row) {
-        return (row >= 0 && row < ROWS );
+    private boolean isValidCoordinate(int col) {
+        return (col >= 0 && col < COLS );
     } //일단 배열 따라 오면서 계단 내려오며 배열 초과하는 경우 방지하려 만들어놨는데 어떻게 방지해야할지 모르곘음 일단 만듦
 
 
