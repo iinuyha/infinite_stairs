@@ -25,7 +25,7 @@ import team.Block;
 
 public class GameActivity extends AppCompatActivity {
     private final int ROWS = 19;
-    private final int COLS = 40;
+    private final int COLS = 41;
 
     private ProgressBar progressBar;
     private int progressValue = 100; // 초기 값 설정
