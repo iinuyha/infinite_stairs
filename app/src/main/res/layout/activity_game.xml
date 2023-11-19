@@ -7,9 +7,6 @@
     android:id="@+id/my_constraint_layout"
     tools:context=".GameActivity">
 
-
-
-
     <GridLayout
         android:id="@+id/gameGrid"
         android:layout_width="0dp"
@@ -26,6 +23,34 @@
         app:layout_constraintVertical_bias="0.5"
         app:layout_constraintHorizontal_bias="0.5"/>
 
+    <!--배경 이미지를 4개 설정해두고, 버튼 클릭 할 때마다 한겹씩 INVISIBLE되도록 함.
+    4번째 버튼 클릭 때무터는 걍 배경이 검정색(backgroundImageView4)으로 보임-->
+    <ImageView
+        android:id="@+id/backgroundImageView4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/game_background4" />
+
+    <ImageView
+        android:id="@+id/backgroundImageView3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/game_background3" />
+
+    <ImageView
+        android:id="@+id/backgroundImageView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/game_background2" />
 
     <ImageView
         android:id="@+id/backgroundImageView"
@@ -56,6 +81,7 @@
         android:layout_height="45dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="12dp"
+        android:background="#000000"
         android:max="100"
         android:progress="100"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,7 +98,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/stop_btn"
         android:scaleType="centerCrop"
-        android:onClick="show_default_dialog"
         android:background="@null" />
 
     <ImageButton
@@ -87,6 +112,7 @@
         app:layout_constraintVertical_bias="0.95"
         android:background="@null"
         android:scaleType="fitCenter"
+        android:translationZ="10dp"
         android:src="@drawable/change_btn" />
 
     <ImageButton
@@ -101,6 +127,7 @@
         app:layout_constraintVertical_bias="0.95"
         android:background="@null"
         android:scaleType="fitCenter"
+        android:translationZ="10dp"
         android:src="@drawable/up_btn" />
 
 

@@ -77,31 +77,14 @@ public class GameActivity extends AppCompatActivity {
 
         // 1초마다 ProgressBar를 업데이트하는 Handler 설정
         this.handler = new Handler(Looper.getMainLooper());
-        this.handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                // ProgressBar 갱신
-                progressBar.setProgress(progressValue);
-
-                // progressValue 갱신
-                progressValue -= 10;
-
-                // progressValue가 0 미만으로 가지 않도록 체크
-                if (progressValue >= 0) {
-                    // 다음 갱신을 위해 Handler에게 postDelayed 호출
-                    handler.postDelayed(this, 1000); // 1초마다 갱신
-                } else {
-                    // progressValue가 0 이하일 때, ResultActivity로 이동
-                    // goToResultActivity();
-                }
-            }
-        }, 500); // 초기 0.5초 후에 시작
+        handler.postDelayed(progressBarRunnable, 500); // 초기 0.5초 후에 시작
 
         ImageButton stopButton = findViewById(R.id.StopButton);
         stopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // 일시정지 버튼 누르면 팝업창 뜨도록 여기 기능 구현하기
+                showCustomDialog();
             }
         });
 
@@ -112,7 +95,7 @@ public class GameActivity extends AppCompatActivity {
                 gameState.updateBlock(0);
                 drawView.invalidate();
                 // 왼쪽 아래 방향 바꾸는 버튼 누르면 실행되는 기능
-                moveBackgroundDown(); // 버튼을 누를 때마다 배경이 내려감
+                changeBackground();
                 restartProgress();  // 버튼을 누를 때마다 프로그레스바가 100으로 꽉 참
             }
         });
@@ -124,7 +107,7 @@ public class GameActivity extends AppCompatActivity {
                 gameState.updateBlock(1);
                 drawView.invalidate();
                 // 오른쪽 아래 위로 올라가는 버튼 누르면 실행되는 기능
-                moveBackgroundDown(); // 버튼을 누를 때마다 배경이 내려감
+                changeBackground();
                 restartProgress();  // 버튼을 누를 때마다 프로그레스바가 100으로 꽉 참
             }
         });
@@ -134,19 +117,49 @@ public class GameActivity extends AppCompatActivity {
 
     ///////////////////////////////////////////////////////////
 
-    //일시정지 버튼 누르면 다이얼로그 띄워줌. 클릭이 발생하면 해당 함수가 실행하도록 xml에서 정의해줘서 위의 코드엔 없음
-    public void show_default_dialog(View v){
-        CustomDialog.getInstance(this).showDefaultDialog();
-    }
-
-
-
-
-    // 프로그레스바의 값을 100으로 초기화하는 메서드
+    // 프로그레스바의 초기 값을 100으로 지정
     private void restartProgress() {
         progressValue = 100;
     }
 
+    private Runnable progressBarRunnable = new Runnable() {
+        @Override
+        public void run() {
+            // ProgressBar 갱신
+            progressBar.setProgress(progressValue);
+            progressValue -= 10;        // 프로그레스바가 1초에 10씩 줄어듦
+
+            // progressValue가 0 미만으로 가지 않도록 체크
+            if (progressValue >= 0) {
+                // 다음 갱신을 위해 Handler에게 postDelayed 호출
+                handler.postDelayed(this, 1000); // 1초마다 갱신
+            } else {
+                // progressValue가 0 미만일 때, ResultActivity로 이동
+                goToResultActivity();
+            }
+        }
+    };
+
+    //일시정지 버튼 누르면 CustomDialog 클래스에서 지정한 다이얼로그 띄움
+    private void showCustomDialog() {
+        // 다이얼로그가 뜨면, 프로그레스바는 중지
+        handler.removeCallbacksAndMessages(null);
+        // 커스텀다이얼로그 불러옴
+        CustomDialog.showDefaultDialog(this, new CustomDialog.DialogCallback() {
+            @Override
+            public void onHomeButtonClicked() {
+                // gameHomeBtn을 눌렀을 때 MainActivity로 이동
+                Intent intent = new Intent(GameActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onPlayButtonClicked() {
+                // gamePlayBtn을 눌렀을 때 다이얼로그 닫고, 프로그레스바는 다시 이어서 실행
+                handler.postDelayed(progressBarRunnable, 1000); // 1초마다 갱신
+            }
+        });
+    }
 
     // ResultActivity로 이동하는 메서드
     private void goToResultActivity() {
@@ -155,18 +168,24 @@ public class GameActivity extends AppCompatActivity {
     }
 
     // 배경을 아래로 이동시키는 메서드
-    private void moveBackgroundDown() {
-        final int moveDistance = 100; // 이동 거리 (임의의 값)
-        final int moveDuration = 1000; // 이동 시간 (1초)
+    private int currentBackgroundIndex = 0;
 
-        // 배경을 이동하기 위한 Handler 설정
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                // ImageView의 위치를 변경하여 화면을 이동하는 효과를 낼 수 있음
-                backgroundImageView.setY(backgroundImageView.getY() + moveDistance);
-            }
-        }, moveDuration);
+    //버튼을 1~3번째 클릭하는 경우에 배경 이미지가 하니씩 INVISIBLE하게 되도록
+    private void changeBackground() {
+        int[] backgroundIds = {
+                R.id.backgroundImageView,
+                R.id.backgroundImageView2,
+                R.id.backgroundImageView3,
+        };
+
+        if (currentBackgroundIndex < 3){
+            // 현재 처리할 배경 ImageView
+            ImageView currentBackground = findViewById(backgroundIds[currentBackgroundIndex]);
+
+            //배경을 INVISIBLE로 설정
+            currentBackground.setVisibility(View.INVISIBLE);
+
+            currentBackgroundIndex++;
+        }
     }
-
 }
