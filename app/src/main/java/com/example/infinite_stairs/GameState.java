@@ -4,17 +4,17 @@ package com.example.infinite_stairs;
 //20에서 0.5확률로 -1이나 +1 연산이 실행될때, 20에서 40을 초과하거나 음수가 될 확률 2%됨
 
 public class GameState { //수정 : public으로 수정
-    private final int ROWS = 19;
-    private final int COLS = 41;
-    private final int INIT_VALUE = 20;
+    private final int ROWS = 19;        // 19행
+    private final int COLS = 41;        // 41열
+    private final int INIT_VALUE = 20;  // 기본값이 20 (캐릭터가 41열 중 20번째 열에 있을 것)
 
     boolean status; //죽었는지 살았는지
     int score;  //점수
     boolean pause; //일시정지
     BasicBlock[][] board;
     boolean difficultMode; //어려운 모드
-    private int rows; //열
-    private int columns; //행
+    private int rows; //행
+    private int columns; //열
     private Integer ctr;
     private int direction = 1;
 
