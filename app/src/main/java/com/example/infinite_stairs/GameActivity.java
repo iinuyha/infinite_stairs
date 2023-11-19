@@ -193,8 +193,8 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
+    // ImageView를 좌우로 반전시키는 코드
     private void flipImage() {
-        // ImageView를 좌우로 반전시키는 코드
         if (isFlipped) {
             imageView.setScaleX(1f); // 원래 크기로
         } else {
