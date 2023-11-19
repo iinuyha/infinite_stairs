@@ -7,9 +7,6 @@
     android:id="@+id/my_constraint_layout"
     tools:context=".GameActivity">
 
-
-
-
     <GridLayout
         android:id="@+id/gameGrid"
         android:layout_width="0dp"
@@ -26,6 +23,34 @@
         app:layout_constraintVertical_bias="0.5"
         app:layout_constraintHorizontal_bias="0.5"/>
 
+    <!--배경 이미지를 4개 설정해두고, 버튼 클릭 할 때마다 한겹씩 INVISIBLE되도록 함.
+    4번째 버튼 클릭 때무터는 걍 배경이 검정색(backgroundImageView4)으로 보임-->
+    <ImageView
+        android:id="@+id/backgroundImageView4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/game_background4" />
+
+    <ImageView
+        android:id="@+id/backgroundImageView3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/game_background3" />
+
+    <ImageView
+        android:id="@+id/backgroundImageView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/game_background2" />
 
     <ImageView
         android:id="@+id/backgroundImageView"
@@ -40,7 +65,7 @@
     <ImageView
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:background="@null"
         android:scaleType="centerCrop"
@@ -54,8 +79,9 @@
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="287dp"
         android:layout_height="45dp"
-        android:layout_marginStart="60dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="12dp"
+        android:background="#000000"
         android:max="100"
         android:progress="100"
         app:layout_constraintStart_toStartOf="parent"
@@ -66,9 +92,8 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="345dp"
+        android:layout_marginRight="10dp"
         android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/stop_btn"
@@ -81,12 +106,13 @@
         android:layout_height="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.9"
+        app:layout_constraintVertical_bias="0.95"
         android:background="@null"
         android:scaleType="fitCenter"
+        android:translationZ="10dp"
         android:src="@drawable/change_btn" />
 
     <ImageButton
@@ -95,12 +121,13 @@
         android:layout_height="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.9"
+        app:layout_constraintVertical_bias="0.95"
         android:background="@null"
         android:scaleType="fitCenter"
+        android:translationZ="10dp"
         android:src="@drawable/up_btn" />
 
 
