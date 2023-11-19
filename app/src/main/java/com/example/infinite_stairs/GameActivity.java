@@ -50,9 +50,6 @@ public class GameActivity extends AppCompatActivity {
     int delayLowerLimit;
 
 
-    public GameActivity() {
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -137,7 +134,10 @@ public class GameActivity extends AppCompatActivity {
 
     ///////////////////////////////////////////////////////////
 
-
+    //일시정지 버튼 누르면 다이얼로그 띄워줌. 클릭이 발생하면 해당 함수가 실행하도록 xml에서 정의해줘서 위의 코드엔 없음
+    public void show_default_dialog(View v){
+        CustomDialog.getInstance(this).showDefaultDialog();
+    }
 
 
 
