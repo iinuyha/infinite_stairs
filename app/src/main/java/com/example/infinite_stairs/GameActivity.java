@@ -29,8 +29,10 @@ public class GameActivity extends AppCompatActivity {
 
     private ProgressBar progressBar;
     private int progressValue = 100; // 초기 값 설정
-    private ImageView backgroundImageView;
+    private ImageView imageView;
     private Handler handler;
+
+    private boolean isFlipped = false;
 
 
     //////////////////////////////////////////////////////////////////////
@@ -56,7 +58,6 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
 
         progressBar = findViewById(R.id.progressBar);
-        backgroundImageView = findViewById(R.id.backgroundImageView);
 
         ///////////////////////////////////////////////////////////
 
@@ -89,18 +90,21 @@ public class GameActivity extends AppCompatActivity {
         });
 
         ImageButton changeButton = findViewById(R.id.ChangeButton);
+        ImageButton upButton = findViewById(R.id.UpButton);
+        imageView = findViewById(R.id.CatImage);
+
+        // change 버튼 누르면
         changeButton.setOnClickListener(new View.OnClickListener() { // 수정: changeButton에 대한 클릭 리스너 추가
             @Override
             public void onClick(View view) {
                 gameState.updateBlock(0);
                 drawView.invalidate();
-                // 왼쪽 아래 방향 바꾸는 버튼 누르면 실행되는 기능
-                changeBackground();
+                changeBackground(); // 배경 내려감
                 restartProgress();  // 버튼을 누를 때마다 프로그레스바가 100으로 꽉 참
+                flipImage(); // 방향 바꿈
             }
         });
-
-        ImageButton upButton = findViewById(R.id.UpButton);
+        // up버튼 누르면
         upButton.setOnClickListener(new View.OnClickListener() { // 수정: upButton에 대한 클릭 리스너 추가
             @Override
             public void onClick(View view) {
@@ -187,5 +191,17 @@ public class GameActivity extends AppCompatActivity {
 
             currentBackgroundIndex++;
         }
+    }
+
+    private void flipImage() {
+        // ImageView를 좌우로 반전시키는 코드
+        if (isFlipped) {
+            imageView.setScaleX(1f); // 원래 크기로
+        } else {
+            imageView.setScaleX(-1f); // 좌우로 반전
+        }
+
+        // 상태 업데이트
+        isFlipped = !isFlipped;
     }
 }
