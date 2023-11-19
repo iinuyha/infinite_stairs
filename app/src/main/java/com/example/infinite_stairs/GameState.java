@@ -73,7 +73,8 @@ public class GameState { //수정 : public으로 수정
                 if (board[i][j].state == BasicBlockState.ON_BLOCK) { //꼭 삭제부터 해야함
                     setBlockState(j, i, BasicBlockState.ON_EMPTY);
                     if (i != ROWS - 1) { //맨 밑에 있는 블록은 그 밑에 블록을 더 생성하면 안됨
-                        setBlockState(j + 1, i + direction, BasicBlockState.ON_BLOCK);
+                        setBlockState(j +direction, i + 1, BasicBlockState.ON_BLOCK);
+                        //j+1, i+direction   이었는데        j+direction, i+1로 바꿨어
                     }
                 }
             }
@@ -120,7 +121,7 @@ public class GameState { //수정 : public으로 수정
         if (col < INIT_VALUE - 7) {  //더 작으면 +1(+1해야하니까 +1로 설정했음)
             return 1;
         }
-        if (col >= INIT_VALUE - 7 && col <= INIT_VALUE + 7) { //더 크면 -1해야하니까 -1로 설정했음
+        if (col >= INIT_VALUE - 7 && col <= INIT_VALUE + 7) { // 유효범위 +-7 안에 들어오면
             return 0;
         }
         if (col > INIT_VALUE + 7) { //더 크면 -1해야하니까 -1로 설정했음
