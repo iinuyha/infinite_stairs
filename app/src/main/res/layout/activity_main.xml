@@ -53,13 +53,15 @@
         android:background="@null" />
 
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:orientation="horizontal"
-        tools:layout_editor_absoluteX="130dp"
-        tools:layout_editor_absoluteY="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="430dp"
         tools:ignore="MissingConstraints">
 
         <ImageButton
@@ -69,7 +71,8 @@
             android:layout_marginTop="430dp"
             android:layout_weight="1"
             android:background="@null"
-            android:scaleType="fitStart"/>
+            android:scaleType="fitStart"
+            app:srcCompat="@drawable/music_on_btn"/>
 
         <ImageButton
             android:id="@+id/MailButton"
@@ -80,7 +83,7 @@
             android:background="@null"
             android:scaleType="fitEnd"
             app:srcCompat="@drawable/mail_btn" />
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

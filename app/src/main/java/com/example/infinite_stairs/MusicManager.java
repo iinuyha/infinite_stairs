@@ -1,4 +1,5 @@
 package com.example.infinite_stairs;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
@@ -8,7 +9,7 @@ public class MusicManager {
     private MediaPlayer mediaPlayer;
     private boolean musicOn;
     private Context context;
-    private SharedPreferences sharedPreferences;  // 추가
+    private SharedPreferences sharedPreferences;
     private static final String MUSIC_PREFERENCE_KEY = "music_preference";
     private static final String MUSIC_STATE_KEY = "music_state";
 
@@ -35,7 +36,7 @@ public class MusicManager {
     }
 
     public void startMusic() {
-        if (mediaPlayer != null && !mediaPlayer.isPlaying()) {
+        if (mediaPlayer != null && !mediaPlayer.isPlaying() && !musicOn) {
             mediaPlayer.start();
             musicOn = true;
             saveMusicState(true);
@@ -43,7 +44,7 @@ public class MusicManager {
     }
 
     public void stopMusic() {
-        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+        if (mediaPlayer != null && mediaPlayer.isPlaying() && musicOn) {
             mediaPlayer.pause();
             musicOn = false;
             saveMusicState(false);
@@ -51,7 +52,9 @@ public class MusicManager {
     }
 
     public boolean isMusicOn() {
-        return sharedPreferences.getBoolean(MUSIC_STATE_KEY, false);
+        // musicOn 변수에 값을 할당하고 반환
+        musicOn = sharedPreferences.getBoolean(MUSIC_STATE_KEY, false);
+        return musicOn;
     }
 
     public void saveMusicState(boolean isMusicOn) {
@@ -59,6 +62,4 @@ public class MusicManager {
         editor.putBoolean(MUSIC_STATE_KEY, isMusicOn);
         editor.apply();
     }
-
-    // 불필요한 메서드 제거
 }
