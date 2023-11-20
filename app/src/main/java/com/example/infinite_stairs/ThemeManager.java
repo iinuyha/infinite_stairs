@@ -12,6 +12,9 @@ public class ThemeManager {
     @DrawableRes
     private int failImageResource;
 
+    @DrawableRes
+    private int bestScoreImageResource;
+
     private ThemeManager() {
         setBasicTheme();        // 기본적으로 베이직 테마로 설정
     }
@@ -27,12 +30,14 @@ public class ThemeManager {
         catImageResource = R.drawable.cat;
         blockImageResource = R.drawable.block_image;
         failImageResource = R.drawable.fail_cat;
+        bestScoreImageResource = R.drawable.best_cat;
     }
 
     public void setChristmasTheme() {
         catImageResource = R.drawable.cat_christmas;
         blockImageResource = R.drawable.block_image_christmas;
         failImageResource = R.drawable.fail_cat_christmas;
+        bestScoreImageResource = R.drawable.best_cat_christmas;
     }
 
     @DrawableRes
@@ -48,6 +53,11 @@ public class ThemeManager {
     @DrawableRes
     public int getfailImageResource() {
         return failImageResource;
+    }
+
+    @DrawableRes
+    public int getbestScoreImageResource() {
+        return bestScoreImageResource;
     }
 }
 
