@@ -23,11 +23,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ImageButton characterButton = findViewById(R.id.CharacterButton);
-        characterButton.setOnClickListener(new View.OnClickListener() {
+        ImageButton ThemeButton = findViewById(R.id.ThemeButton);
+        ThemeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, CharacterActivity.class);
+                Intent intent = new Intent(MainActivity.this, ThemeActivity.class);
                 startActivity(intent);
             }
         });
