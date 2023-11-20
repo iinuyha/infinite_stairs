@@ -1,25 +1,27 @@
 package com.example.infinite_stairs;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton ;
+import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity {
     private ImageButton soundButton;
+    private MusicManager musicManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // MusicManager를 onCreate에서 초기화
+        musicManager = MusicManager.getInstance(getApplicationContext());
+
         ImageButton startButton = findViewById(R.id.StartButton);
         ImageButton themeButton = findViewById(R.id.ThemeButton);
         soundButton = findViewById(R.id.SoundButton);
         ImageButton mailButton = findViewById(R.id.MailButton);
-
-
 
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,25 +44,28 @@ public class MainActivity extends AppCompatActivity {
         soundButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                toggleMusic();
                 updateMusicButtonImage();
+                toggleMusic();
             }
         });
     }
-    private void toggleMusic() {
-        MusicManager myApplication = MusicManager.getInstance();
-        if (myApplication.isMusicOn()) {
-            myApplication.stopMusic();
+
+    private void updateMusicButtonImage() {
+        if (musicManager.isMusicOn()) {
+            soundButton.setImageResource(R.drawable.music_off_btn);
+            musicManager.stopMusic();
         } else {
-            myApplication.startMusic();
+            soundButton.setImageResource(R.drawable.music_on_btn);
+            musicManager.startMusic();
         }
     }
 
-    private void updateMusicButtonImage() {
-        if (MusicManager.getInstance().isMusicOn()) {
-            soundButton.setImageResource(R.drawable.music_on_btn);
+    private void toggleMusic() {
+        if (musicManager.isMusicOn()) {
+            musicManager.stopMusic();
         } else {
-            soundButton.setImageResource(R.drawable.music_off_btn);
+            musicManager.startMusic();
         }
     }
 }
+
