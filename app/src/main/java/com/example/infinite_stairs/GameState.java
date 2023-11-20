@@ -22,6 +22,7 @@ public class GameState { //수정 : public으로 수정
     private int columns; //열
     private Integer ctr;
     private int direction = 1;
+    private int maxScore = 0;
 
     GameState(int rows, int columns) {
         this.rows = rows;
@@ -62,6 +63,7 @@ public class GameState { //수정 : public으로 수정
 
             saveColValue += a;
         }
+        score = 0;
     }
 
     void updateBlock(int dir) { //dir은 캐릭터가 올라가는 방향 캐릭터가 왼쪽으로 올라가면 블록이 오른쪽으로 움직이며 +1, 오른쪽으로 올라가면 블록이 왼쪽으로 움직이며 -1
@@ -98,6 +100,8 @@ public class GameState { //수정 : public으로 수정
             }
         } //첫번째줄에 랜덤으로 블록 생성
 
+        score++;
+
 
     }
     //아 근데 만약에 이렇게 계단 내려오면서 배열을 초과하는 경우는 어떡하지 => 열 개수 그냥 40으로 설정
@@ -113,6 +117,21 @@ public class GameState { //수정 : public으로 수정
         if (isValidCoordinate(row, col)) {
             board[row][col].state = ON_EMPTY;
         }
+    }
+
+    public int getScore(){
+        return score;
+    }
+
+    public int isMaxScore(){
+        if(score > maxScore){
+            return 1;
+        }
+        return 0;
+    }
+
+    public int getMaxScore(){
+        return maxScore;
     }
 
     private boolean isValidCoordinate(int row, int col) {
