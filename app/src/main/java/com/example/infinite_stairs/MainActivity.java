@@ -16,7 +16,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // MusicManager를 onCreate에서 초기화
-        musicManager = MusicManager.getInstance(getApplicationContext());
+        MyApplication myApp = (MyApplication) getApplication();
+        musicManager = myApp.getMusicManager();
 
         ImageButton startButton = findViewById(R.id.StartButton);
         ImageButton themeButton = findViewById(R.id.ThemeButton);
@@ -52,11 +53,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateMusicButtonImage() {
         if (musicManager.isMusicOn()) {
-            soundButton.setImageResource(R.drawable.music_off_btn);
-            musicManager.stopMusic();
-        } else {
             soundButton.setImageResource(R.drawable.music_on_btn);
-            musicManager.startMusic();
+        } else {
+            soundButton.setImageResource(R.drawable.music_off_btn);
         }
     }
 
@@ -66,6 +65,10 @@ public class MainActivity extends AppCompatActivity {
         } else {
             musicManager.startMusic();
         }
+        // 노래 상태를 저장
+        musicManager.saveMusicState(!musicManager.isMusicOn());
+        // 이미지 업데이트
+        updateMusicButtonImage();
     }
-}
 
+}
