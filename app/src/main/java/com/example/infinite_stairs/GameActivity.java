@@ -50,6 +50,8 @@ public class GameActivity extends AppCompatActivity {
     int delay;
     int delayLowerLimit;
 
+    int score;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +95,7 @@ public class GameActivity extends AppCompatActivity {
         imageView = findViewById(R.id.CatImage);
         TextView CurrentScore = findViewById(R.id.CurrentScoreText);
 
+        score = 0;
         // change 버튼 누르면
         changeButton.setOnClickListener(new View.OnClickListener() { // 수정: changeButton에 대한 클릭 리스너 추가
             @Override
@@ -103,9 +106,11 @@ public class GameActivity extends AppCompatActivity {
                 restartProgress();  // 버튼을 누를 때마다 프로그레스바가 100으로 꽉 참
                 flipImage(); // 방향 바꿈
                 if (gameState.checkEmpty() == 1) {
-                    // 점수 1점 추가
+                    score++;
+                    CurrentScore.setText(String.valueOf(score));
                 } else{
                     Intent gameOverIntent = new Intent(GameActivity.this, ResultActivity.class);
+                    gameOverIntent.putExtra("score", score); // score를 Intent에 추가
                     startActivity(gameOverIntent);
                 }
             }
@@ -121,9 +126,11 @@ public class GameActivity extends AppCompatActivity {
                 restartProgress();  // 버튼을 누를 때마다 프로그레스바가 100으로 꽉 참
 
                 if (gameState.checkEmpty() == 1) {
-                    //점수 1점 추가하는 함수
+                    score++;
+                    CurrentScore.setText(String.valueOf(score));
                 } else{
                     Intent gameOverIntent = new Intent(GameActivity.this, ResultActivity.class);
+                    gameOverIntent.putExtra("score", score); // score를 Intent에 추가
                     startActivity(gameOverIntent);
                 }
             }
