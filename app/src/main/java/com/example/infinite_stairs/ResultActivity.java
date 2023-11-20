@@ -15,8 +15,8 @@ public class ResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
-        Intent gameIntent = getIntent();
-        int score = gameIntent.getIntExtra("score", 0);
+        Intent fromGameIntent = getIntent();
+        int score = fromGameIntent.getIntExtra("score", 0);
 
         // TextView 찾기
         TextView currentScoreTextView = findViewById(R.id.CurrentScore);
@@ -32,8 +32,8 @@ public class ResultActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // MainActivity로 이동하는 Intent 생성
-                Intent intent = new Intent(ResultActivity.this, MainActivity.class);
-                startActivity(intent);
+                Intent toMainIntent = new Intent(ResultActivity.this, MainActivity.class);
+                startActivity(toMainIntent);
             }
         });
     }
