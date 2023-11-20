@@ -23,6 +23,17 @@ public class MainActivity extends AppCompatActivity {
         ImageButton themeButton = findViewById(R.id.ThemeButton);
         soundButton = findViewById(R.id.SoundButton);
         ImageButton mailButton = findViewById(R.id.MailButton);
+        mailButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
+                Intent mail = new Intent(Intent.ACTION_SEND);
+                mail.setType("plain/text");
+                String[] address = {"email@address.com"};
+                mail.putExtra(Intent.EXTRA_EMAIL, address);
+                mail.putExtra(Intent.EXTRA_SUBJECT, "test@test");
+                mail.putExtra(Intent.EXTRA_TEXT, "내용 미리보기 (미리적을 수 있음)");
+                startActivity(mail);
+            }
+        });
 
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
