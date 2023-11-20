@@ -1,28 +1,30 @@
 package com.example.infinite_stairs;
 
-import android.app.Application;
+import android.content.Context;
 import android.media.MediaPlayer;
 
-public class MusicManager extends Application {
+public class MusicManager {
     private static MusicManager instance;
     private MediaPlayer mediaPlayer;
-    private boolean musicOn;
+    public boolean musicOn;
+    private Context context;  // 추가
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        instance = this;
-        musicOn = true; // 기본값은 음악이 켜져있는 상태
+    private MusicManager(Context context) {  // 생성자에 Context 추가
+        this.context = context;
+        musicOn = false; // 기본값은 음악이 켜져있는 상태
         initMediaPlayer();
     }
 
-    public static MusicManager getInstance() {
+    public static synchronized MusicManager getInstance(Context context) {
+        if (instance == null) {
+            instance = new MusicManager(context.getApplicationContext());
+        }
         return instance;
     }
 
     private void initMediaPlayer() {
-        mediaPlayer = MediaPlayer.create(this, R.raw.your_music_file); // 여기서 'your_music_file'은 재생할 음악 파일의 이름입니다.
-        mediaPlayer.setLooping(true); // 음악을 반복 재생하도록 설정
+        mediaPlayer = MediaPlayer.create(context, R.raw.background_music);
+        mediaPlayer.setLooping(true);
     }
 
     public void startMusic() {
