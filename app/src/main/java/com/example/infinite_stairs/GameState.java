@@ -3,6 +3,9 @@ package com.example.infinite_stairs;
 //bitmap 아예 배열 시작점을 15, 20으로 두고 배열 위치를 옮기기 => 유효성 문제 해결
 //20에서 0.5확률로 -1이나 +1 연산이 실행될때, 20에서 40을 초과하거나 음수가 될 확률 2%됨
 
+import static com.example.infinite_stairs.BasicBlockState.ON_BLOCK;
+import static com.example.infinite_stairs.BasicBlockState.ON_EMPTY;
+
 import android.content.Intent;
 
 public class GameState { //수정 : public으로 수정
@@ -73,7 +76,7 @@ public class GameState { //수정 : public으로 수정
         for (int i = ROWS-1; i >= 0; i--) { //꼭 맨 밑부터 실행 되어야해서 ROW 값부터 실행
             for (int j = 0; j < COLS; j++) {
                 if (board[i][j].state == BasicBlockState.ON_BLOCK) { //꼭 삭제부터 해야함
-                    setBlockState(j, i, BasicBlockState.ON_EMPTY);
+                    setBlockState(j, i, ON_EMPTY);
                     if (i != ROWS - 1) { //맨 밑에 있는 블록은 그 밑에 블록을 더 생성하면 안됨
                         setBlockState(j +direction, i + 1, BasicBlockState.ON_BLOCK);
                         //j+1, i+direction   이었는데        j+direction, i+1로 바꿨어
@@ -108,7 +111,7 @@ public class GameState { //수정 : public으로 수정
 
     public void removeBlock(int col, int row) {
         if (isValidCoordinate(row, col)) {
-            board[row][col].state = BasicBlockState.ON_EMPTY;
+            board[row][col].state = ON_EMPTY;
         }
     }
 
@@ -131,6 +134,12 @@ public class GameState { //수정 : public으로 수정
         }
         return 0;
     }
-
+    public int checkEmpty() {
+        if (board[14][20].state == ON_BLOCK) {
+            return 1; // ON_BLOCK 일 때 1 리턴
+        } else {
+            return 0; // ON_BLOCK가 아니면(비어있으면) 0 리턴
+        }
+    }
 
 }
