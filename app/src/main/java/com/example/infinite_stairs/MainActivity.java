@@ -40,12 +40,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        updateMusicButtonImage();  // 앱이 실행될 때 현재 상태에 맞게 이미지 설정
+        toggleMusic();  // 앱이 실행될 때 현재 상태에 맞게 이미지 설정
 
         soundButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                updateMusicButtonImage();
                 toggleMusic();
             }
         });
@@ -53,9 +52,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateMusicButtonImage() {
         if (musicManager.isMusicOn()) {
-            soundButton.setImageResource(R.drawable.music_on_btn);
-        } else {
             soundButton.setImageResource(R.drawable.music_off_btn);
+        } else {
+            soundButton.setImageResource(R.drawable.music_on_btn);
         }
     }
 
@@ -65,10 +64,9 @@ public class MainActivity extends AppCompatActivity {
         } else {
             musicManager.startMusic();
         }
-        // 노래 상태를 저장
-        musicManager.saveMusicState(!musicManager.isMusicOn());
-        // 이미지 업데이트
+        // 이미지 업데이트 이후에 상태를 저장
         updateMusicButtonImage();
+        musicManager.saveMusicState(!musicManager.isMusicOn());
     }
-
 }
+
