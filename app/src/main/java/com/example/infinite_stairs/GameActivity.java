@@ -100,7 +100,7 @@ public class GameActivity extends AppCompatActivity {
         TextView CurrentScore = findViewById(R.id.CurrentScoreText);
         Intent toResultIntent = new Intent(GameActivity.this, ResultActivity.class);
 
-        score = 0;
+
         // change 버튼 누르면
         changeButton.setOnClickListener(new View.OnClickListener() { // 수정: changeButton에 대한 클릭 리스너 추가
             @Override
@@ -111,7 +111,7 @@ public class GameActivity extends AppCompatActivity {
                 restartProgress();  // 버튼을 누를 때마다 프로그레스바가 100으로 꽉 참
                 flipImage(); // 방향 바꿈
                 if (gameState.checkEmpty() == 1) {
-                    score++;
+                    score = gameState.getScore();
                     CurrentScore.setText(String.valueOf(score));
                 } else {
                     timer.schedule(new TimerTask() {
@@ -135,9 +135,8 @@ public class GameActivity extends AppCompatActivity {
                 // 오른쪽 아래 위로 올라가는 버튼 누르면 실행되는 기능
                 changeBackground();
                 restartProgress();  // 버튼을 누를 때마다 프로그레스바가 100으로 꽉 참
-
                 if (gameState.checkEmpty() == 1) {
-                    score++;
+                    score = gameState.getScore();
                     CurrentScore.setText(String.valueOf(score));
                 } else {
                     timer.schedule(new TimerTask() {
