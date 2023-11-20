@@ -18,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import java.util.Random;
 
@@ -51,6 +53,7 @@ public class GameActivity extends AppCompatActivity {
     int delayLowerLimit;
 
     int score;
+    Timer timer = new Timer();
 
 
     @Override
@@ -110,10 +113,16 @@ public class GameActivity extends AppCompatActivity {
                 if (gameState.checkEmpty() == 1) {
                     score++;
                     CurrentScore.setText(String.valueOf(score));
-                } else{
-                    handler.removeCallbacksAndMessages(null);   // 죽으면 프로그래스바 중지
-                    toResultIntent.putExtra("score", score); // score를 Intent에 추가
-                    startActivity(toResultIntent);
+                } else {
+                    timer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            handler.removeCallbacksAndMessages(null);   // 죽으면 프로그래스바 중지
+                            toResultIntent.putExtra("score", score); // score를 Intent에 추가
+                            startActivity(toResultIntent);
+
+                        }
+                    }, 3000);
                 }
             }
         });
@@ -130,10 +139,16 @@ public class GameActivity extends AppCompatActivity {
                 if (gameState.checkEmpty() == 1) {
                     score++;
                     CurrentScore.setText(String.valueOf(score));
-                } else{
-                    handler.removeCallbacksAndMessages(null);   // 죽으면 프로그래스바 중지
-                    toResultIntent.putExtra("score", score); // score를 Intent에 추가
-                    startActivity(toResultIntent);
+                } else {
+                    timer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            handler.removeCallbacksAndMessages(null);   // 죽으면 프로그래스바 중지
+                            toResultIntent.putExtra("score", score); // score를 Intent에 추가
+                            startActivity(toResultIntent);
+
+                        }
+                    }, 3000);
                 }
             }
         });
