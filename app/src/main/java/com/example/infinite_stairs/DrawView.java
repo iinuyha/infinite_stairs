@@ -30,7 +30,7 @@ public class DrawView extends View {
         super(context);
         yOffset = 200;  //테트리스 시작 위치 정하기 위해 사용됨
         this.gameState = gameState;
-        Bitmap originalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.block_image);
+        Bitmap originalBitmap = BitmapFactory.decodeResource(getResources(), ThemeManager.getInstance().getBlockImageResource());
         BlockBitmap = Bitmap.createScaledBitmap(originalBitmap, 200, 100, true);  // 크기를 200x200으로 조정
 
     } //초기 그리기 설정

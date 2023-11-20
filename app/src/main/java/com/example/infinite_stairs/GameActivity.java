@@ -93,6 +93,7 @@ public class GameActivity extends AppCompatActivity {
         ImageButton changeButton = findViewById(R.id.ChangeButton);
         ImageButton upButton = findViewById(R.id.UpButton);
         imageView = findViewById(R.id.CatImage);
+        imageView.setImageResource(ThemeManager.getInstance().getCatImageResource());
         TextView CurrentScore = findViewById(R.id.CurrentScoreText);
 
         score = 0;
