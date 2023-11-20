@@ -100,6 +100,10 @@ public class GameActivity extends AppCompatActivity {
         TextView CurrentScore = findViewById(R.id.CurrentScoreText);
         Intent toResultIntent = new Intent(GameActivity.this, ResultActivity.class);
 
+        HighScoreManager highScoreManager = HighScoreManager.getInstance(getApplicationContext());
+        int currentHighScore = highScoreManager.getHighScore();
+
+
 
         // change 버튼 누르면
         changeButton.setOnClickListener(new View.OnClickListener() { // 수정: changeButton에 대한 클릭 리스너 추가
@@ -113,6 +117,9 @@ public class GameActivity extends AppCompatActivity {
                 if (gameState.checkEmpty() == 1) {
                     score = gameState.getScore();
                     CurrentScore.setText(String.valueOf(score));
+                    if (currentHighScore<=score){
+                        highScoreManager.setHighScore(score);
+                    }
                 } else {
                     // cat 이미지를 fail_cat 이미지로 변경
                     runOnUiThread(new Runnable() {
@@ -145,6 +152,9 @@ public class GameActivity extends AppCompatActivity {
                 if (gameState.checkEmpty() == 1) {
                     score = gameState.getScore();
                     CurrentScore.setText(String.valueOf(score));
+                    if (currentHighScore<=score){
+                        highScoreManager.setHighScore(score);
+                    }
                 } else {
                     // cat 이미지를 fail_cat 이미지로 변경
                     runOnUiThread(new Runnable() {
