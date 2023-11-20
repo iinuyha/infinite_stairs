@@ -114,6 +114,13 @@ public class GameActivity extends AppCompatActivity {
                     score = gameState.getScore();
                     CurrentScore.setText(String.valueOf(score));
                 } else {
+                    // cat 이미지를 fail_cat 이미지로 변경
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            imageView.setImageResource(ThemeManager.getInstance().getfailImageResource());
+                        }
+                    });
                     timer.schedule(new TimerTask() {
                         @Override
                         public void run() {
@@ -139,6 +146,13 @@ public class GameActivity extends AppCompatActivity {
                     score = gameState.getScore();
                     CurrentScore.setText(String.valueOf(score));
                 } else {
+                    // cat 이미지를 fail_cat 이미지로 변경
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            imageView.setImageResource(ThemeManager.getInstance().getfailImageResource());
+                        }
+                    });
                     timer.schedule(new TimerTask() {
                         @Override
                         public void run() {
