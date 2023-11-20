@@ -18,8 +18,8 @@ public class MainActivity extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, GameActivity.class);
-                startActivity(intent);
+                Intent toGameIntent = new Intent(MainActivity.this, GameActivity.class);
+                startActivity(toGameIntent);
             }
         });
 
@@ -27,8 +27,8 @@ public class MainActivity extends AppCompatActivity {
         ThemeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, ThemeActivity.class);
-                startActivity(intent);
+                Intent toThemeIntent = new Intent(MainActivity.this, ThemeActivity.class);
+                startActivity(toThemeIntent);
             }
         });
     }

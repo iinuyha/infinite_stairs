@@ -95,6 +95,7 @@ public class GameActivity extends AppCompatActivity {
         imageView = findViewById(R.id.CatImage);
         imageView.setImageResource(ThemeManager.getInstance().getCatImageResource());
         TextView CurrentScore = findViewById(R.id.CurrentScoreText);
+        Intent toResultIntent = new Intent(GameActivity.this, ResultActivity.class);
 
         score = 0;
         // change 버튼 누르면
@@ -110,9 +111,9 @@ public class GameActivity extends AppCompatActivity {
                     score++;
                     CurrentScore.setText(String.valueOf(score));
                 } else{
-                    Intent gameOverIntent = new Intent(GameActivity.this, ResultActivity.class);
-                    gameOverIntent.putExtra("score", score); // score를 Intent에 추가
-                    startActivity(gameOverIntent);
+                    handler.removeCallbacksAndMessages(null);   // 죽으면 프로그래스바 중지
+                    toResultIntent.putExtra("score", score); // score를 Intent에 추가
+                    startActivity(toResultIntent);
                 }
             }
         });
@@ -130,9 +131,9 @@ public class GameActivity extends AppCompatActivity {
                     score++;
                     CurrentScore.setText(String.valueOf(score));
                 } else{
-                    Intent gameOverIntent = new Intent(GameActivity.this, ResultActivity.class);
-                    gameOverIntent.putExtra("score", score); // score를 Intent에 추가
-                    startActivity(gameOverIntent);
+                    handler.removeCallbacksAndMessages(null);   // 죽으면 프로그래스바 중지
+                    toResultIntent.putExtra("score", score); // score를 Intent에 추가
+                    startActivity(toResultIntent);
                 }
             }
         });
@@ -174,8 +175,8 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onHomeButtonClicked() {
                 // gameHomeBtn을 눌렀을 때 MainActivity로 이동
-                Intent intent = new Intent(GameActivity.this, MainActivity.class);
-                startActivity(intent);
+                Intent fromDialogToMainIntent = new Intent(GameActivity.this, MainActivity.class);
+                startActivity(fromDialogToMainIntent);
             }
 
             @Override
@@ -188,8 +189,8 @@ public class GameActivity extends AppCompatActivity {
 
     // ResultActivity로 이동하는 메서드
     private void goToResultActivity() {
-        Intent intent = new Intent(this, ResultActivity.class);
-        startActivity(intent);
+        Intent timeOverIntent = new Intent(this, ResultActivity.class);
+        startActivity(timeOverIntent);
     }
 
     // 배경을 아래로 이동시키는 메서드
