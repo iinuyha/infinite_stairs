@@ -44,7 +44,6 @@ public class GameActivity extends AppCompatActivity {
     Button rotateAc;
     FrameLayout game;
     Button pause;
-    TextView score;
     Button difficultyToggle;
     Runnable loop;
     int delayFactor;
@@ -92,6 +91,7 @@ public class GameActivity extends AppCompatActivity {
         ImageButton changeButton = findViewById(R.id.ChangeButton);
         ImageButton upButton = findViewById(R.id.UpButton);
         imageView = findViewById(R.id.CatImage);
+        TextView CurrentScore = findViewById(R.id.CurrentScoreText);
 
         // change 버튼 누르면
         changeButton.setOnClickListener(new View.OnClickListener() { // 수정: changeButton에 대한 클릭 리스너 추가
@@ -102,6 +102,12 @@ public class GameActivity extends AppCompatActivity {
                 changeBackground(); // 배경 내려감
                 restartProgress();  // 버튼을 누를 때마다 프로그레스바가 100으로 꽉 참
                 flipImage(); // 방향 바꿈
+                if (gameState.checkEmpty() == 1) {
+                    // 점수 1점 추가
+                } else{
+                    Intent gameOverIntent = new Intent(GameActivity.this, ResultActivity.class);
+                    startActivity(gameOverIntent);
+                }
             }
         });
         // up버튼 누르면
@@ -113,6 +119,13 @@ public class GameActivity extends AppCompatActivity {
                 // 오른쪽 아래 위로 올라가는 버튼 누르면 실행되는 기능
                 changeBackground();
                 restartProgress();  // 버튼을 누를 때마다 프로그레스바가 100으로 꽉 참
+
+                if (gameState.checkEmpty() == 1) {
+                    //점수 1점 추가하는 함수
+                } else{
+                    Intent gameOverIntent = new Intent(GameActivity.this, ResultActivity.class);
+                    startActivity(gameOverIntent);
+                }
             }
         });
     }
@@ -204,4 +217,7 @@ public class GameActivity extends AppCompatActivity {
         // 상태 업데이트
         isFlipped = !isFlipped;
     }
+
+
+
 }
