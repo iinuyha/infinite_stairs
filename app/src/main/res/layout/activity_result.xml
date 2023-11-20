@@ -44,8 +44,35 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.226"
+        app:layout_constraintVertical_bias="0.292"
         app:srcCompat="@drawable/gameover" />
+
+    <TextView
+        android:id="@+id/BestScore"
+        android:layout_width="65dp"
+        android:layout_height="39dp"
+        android:fontFamily="@font/dunggeunmo"
+        android:gravity="center"
+        android:text="123"
+        android:textColor="#FF63D8"
+        android:textSize="38sp"
+        app:layout_constraintBottom_toTopOf="@+id/over"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.636"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.77" />
+
+    <ImageView
+        android:layout_width="87dp"
+        android:layout_height="37dp"
+        app:layout_constraintBottom_toTopOf="@+id/over"
+        app:layout_constraintEnd_toStartOf="@+id/BestScore"
+        app:layout_constraintHorizontal_bias="0.94"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.776"
+        app:srcCompat="@drawable/best_score" />
 
     <ImageView
         android:id="@+id/score"
@@ -53,9 +80,10 @@
         android:layout_height="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.42"
+        app:layout_constraintVertical_bias="0.454"
         app:srcCompat="@drawable/score" />
 
     <TextView
@@ -63,13 +91,15 @@
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:layout_gravity="center"
+        android:layout_marginTop="3dp"
         android:fontFamily="@font/dunggeunmo"
         android:text="0"
         android:textColor="#FFFFFF"
         android:textSize="60sp"
-        app:layout_constraintTop_toBottomOf="@+id/score"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/score"
         tools:ignore="UnknownId" />
 
     <ImageButton
@@ -86,32 +116,6 @@
         app:srcCompat="@drawable/home_btn" />
 
 
-    <TextView
-        android:id="@+id/BestScore"
-        android:layout_width="64dp"
-        android:layout_height="36dp"
-        android:fontFamily="@font/dunggeunmo"
-        android:gravity="center"
-        android:textColor="#FF63D8"
-        android:textSize="38sp"
-        app:layout_constraintBottom_toTopOf="@+id/over"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.636"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.96" />
-
-    <ImageView
-        android:layout_width="87dp"
-        android:layout_height="37dp"
-        app:layout_constraintBottom_toTopOf="@+id/over"
-        app:layout_constraintEnd_toStartOf="@+id/BestScore"
-        app:layout_constraintHorizontal_bias="0.942"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/best_score" />
-
     <ImageView
         android:id="@+id/crownImage"
         android:layout_width="83dp"
@@ -119,12 +123,11 @@
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/over"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/crown"
-        android:visibility="invisible"/>
+        android:visibility="invisible" />
 
     <ImageView
         android:id="@+id/newImage"
@@ -133,12 +136,12 @@
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/BestScore"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintVertical_bias="0.769"
         app:srcCompat="@drawable/new_image"
-        android:visibility="invisible"/>
+        android:visibility="invisible" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
