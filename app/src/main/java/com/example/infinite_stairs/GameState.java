@@ -3,6 +3,8 @@ package com.example.infinite_stairs;
 //bitmap 아예 배열 시작점을 15, 20으로 두고 배열 위치를 옮기기 => 유효성 문제 해결
 //20에서 0.5확률로 -1이나 +1 연산이 실행될때, 20에서 40을 초과하거나 음수가 될 확률 2%됨
 
+import android.content.Intent;
+
 public class GameState { //수정 : public으로 수정
     private final int ROWS = 19;        // 19행
     private final int COLS = 41;        // 41열
@@ -60,7 +62,7 @@ public class GameState { //수정 : public으로 수정
     }
 
     void updateBlock(int dir) { //dir은 캐릭터가 올라가는 방향 캐릭터가 왼쪽으로 올라가면 블록이 오른쪽으로 움직이며 +1, 오른쪽으로 올라가면 블록이 왼쪽으로 움직이며 -1
-        //up 누르면 계속 +1되고 rotate누르면 -1곱해주기 근데 이 과정이 저장이 되어야 하는데 음
+        //up 누르면 계속 +1되고 rotate누르면 -1곱해주기
         //꼭 맨 밑부터 실행되어야함 위에서
         // 객체 위치 업데이트, 버튼 누르면 실행
         // => 만약 ROWS값 있으면 ROWS는 1로 가게 예외로 로직 따로 만들면 됨
@@ -80,9 +82,8 @@ public class GameState { //수정 : public으로 수정
             }
         }
 
-        //이부분 안됨 *수정필요*
         int a = 1;
-        for(int i = 0; i < COLS ; i++){ //ROWS가 아니라 COLS일수도.,.,,.
+        for(int i = 0; i < COLS ; i++){
             if(board[1][i].state == BasicBlockState.ON_BLOCK){ //두번째 열 불륵 찾고 그 대각선에 블록 생성
                 a = Math.random() > 0.5 ? 1 : -1;
                 if(isValidCoordinateForCreation(i + a) == -1){  // 유효값보다 크면 a는 무조건 -1
@@ -97,6 +98,7 @@ public class GameState { //수정 : public으로 수정
 
     }
     //아 근데 만약에 이렇게 계단 내려오면서 배열을 초과하는 경우는 어떡하지 => 열 개수 그냥 40으로 설정
+
 
     public void setBlockState(int col, int row, BasicBlockState state) {
         if (isValidCoordinate(row, col)) {
@@ -121,7 +123,7 @@ public class GameState { //수정 : public으로 수정
         if (col < INIT_VALUE - 7) {  //더 작으면 +1(+1해야하니까 +1로 설정했음)
             return 1;
         }
-        if (col >= INIT_VALUE - 7 && col <= INIT_VALUE + 7) { // 유효범위 +-7 안에 들어오면
+        if (col >= INIT_VALUE - 7 && col <= INIT_VALUE + 7) { // 유효범위 +-7 안에 들어오면 0 리턴
             return 0;
         }
         if (col > INIT_VALUE + 7) { //더 크면 -1해야하니까 -1로 설정했음
@@ -129,7 +131,6 @@ public class GameState { //수정 : public으로 수정
         }
         return 0;
     }
-
 
 
 }

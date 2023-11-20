@@ -204,4 +204,7 @@ public class GameActivity extends AppCompatActivity {
         // 상태 업데이트
         isFlipped = !isFlipped;
     }
+
+
+
 }
