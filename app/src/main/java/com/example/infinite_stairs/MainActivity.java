@@ -7,8 +7,9 @@ import android.view.View;
 import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity {
-    private ImageButton soundButton;
+//    private ImageButton soundButton;
     private MusicManager musicManager;
+    private ImageButton soundButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,17 +24,6 @@ public class MainActivity extends AppCompatActivity {
         ImageButton themeButton = findViewById(R.id.ThemeButton);
         soundButton = findViewById(R.id.SoundButton);
         ImageButton mailButton = findViewById(R.id.MailButton);
-        mailButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view) {
-                Intent mail = new Intent(Intent.ACTION_SEND);
-                mail.setType("plain/text");
-                String[] address = {"email@address.com"};
-                mail.putExtra(Intent.EXTRA_EMAIL, address);
-                mail.putExtra(Intent.EXTRA_SUBJECT, "test@test");
-                mail.putExtra(Intent.EXTRA_TEXT, "내용 미리보기 (미리적을 수 있음)");
-                startActivity(mail);
-            }
-        });
 
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,33 +41,42 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        toggleMusic();  // 앱이 실행될 때 현재 상태에 맞게 이미지 설정
+//        toggleMusic();  // 앱이 실행될 때 현재 상태에 맞게 이미지 설정
 
         soundButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                toggleMusic();
+                toggleMusic(); // 음악을 토글하는 로직만 호출
             }
         });
-    }
 
-    private void updateMusicButtonImage() {
-        if (musicManager.isMusicOn()) {
-            soundButton.setImageResource(R.drawable.music_off_btn);
-        } else {
-            soundButton.setImageResource(R.drawable.music_on_btn);
-        }
+        mailButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendMail(); // 메일을 발송하는 로직만 호출
+            }
+        });
     }
 
     private void toggleMusic() {
         if (musicManager.isMusicOn()) {
             musicManager.stopMusic();
+            soundButton.setImageResource(R.drawable.music_off_btn);
         } else {
             musicManager.startMusic();
+            soundButton.setImageResource(R.drawable.music_on_btn);
         }
-        // 이미지 업데이트 이후에 상태를 저장
-        updateMusicButtonImage();
         musicManager.saveMusicState(!musicManager.isMusicOn());
     }
+
+    private void sendMail() {
+        Intent mail = new Intent(Intent.ACTION_SEND);
+        mail.setType("plain/text");
+        String[] address = {"infinitestairsmanager@gmail.com"};
+        mail.putExtra(Intent.EXTRA_EMAIL, address);
+        mail.putExtra(Intent.EXTRA_TEXT, "infinite stairs에 대한 평가를 전송해주세요! \n :");
+        startActivity(mail);
+    }
+
 }
 
