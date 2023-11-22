@@ -164,6 +164,7 @@ public class GameActivity extends AppCompatActivity {
                     if (currentHighScore<=score){
                         highScoreManager.setHighScore(score);
                         CurrentScore.setTextColor(getResources().getColor(R.color.neon_pink));
+                        bestText.setVisibility(View.VISIBLE);
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
