@@ -98,6 +98,7 @@ public class GameActivity extends AppCompatActivity {
         imageView = findViewById(R.id.CatImage);
         imageView.setImageResource(ThemeManager.getInstance().getCatImageResource());
         TextView CurrentScore = findViewById(R.id.CurrentScoreText);
+        TextView bestText = findViewById(R.id.bestText);
         Intent toResultIntent = new Intent(GameActivity.this, ResultActivity.class);
 
         HighScoreManager highScoreManager = HighScoreManager.getInstance(getApplicationContext());
@@ -119,6 +120,14 @@ public class GameActivity extends AppCompatActivity {
                     CurrentScore.setText(String.valueOf(score));
                     if (currentHighScore<=score){
                         highScoreManager.setHighScore(score);
+                        CurrentScore.setTextColor(getResources().getColor(R.color.neon_pink));
+                        bestText.setVisibility(View.VISIBLE);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                imageView.setImageResource(ThemeManager.getInstance().getbestScoreImageResource());
+                            }
+                        });
                     }
                 } else {
                     // cat 이미지를 fail_cat 이미지로 변경
@@ -154,6 +163,13 @@ public class GameActivity extends AppCompatActivity {
                     CurrentScore.setText(String.valueOf(score));
                     if (currentHighScore<=score){
                         highScoreManager.setHighScore(score);
+                        CurrentScore.setTextColor(getResources().getColor(R.color.neon_pink));
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                imageView.setImageResource(ThemeManager.getInstance().getbestScoreImageResource());
+                            }
+                        });
                     }
                 } else {
                     // cat 이미지를 fail_cat 이미지로 변경
