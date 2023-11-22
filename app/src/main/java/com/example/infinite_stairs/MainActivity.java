@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         soundButton = findViewById(R.id.SoundButton);
         ImageButton mailButton = findViewById(R.id.MailButton);
 
+
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
