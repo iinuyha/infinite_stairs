@@ -27,10 +27,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent mail = new Intent(Intent.ACTION_SEND);
                 mail.setType("plain/text");
-                String[] address = {"email@address.com"};
+                String[] address = {"InfiniteStiars@gmail.com"};
                 mail.putExtra(Intent.EXTRA_EMAIL, address);
-                mail.putExtra(Intent.EXTRA_SUBJECT, "test@test");
-                mail.putExtra(Intent.EXTRA_TEXT, "내용 미리보기 (미리적을 수 있음)");
+                mail.putExtra(Intent.EXTRA_TEXT, "Infinite Stairs 게임에 대한 평가를 전송해주세요! \n :");
                 startActivity(mail);
             }
         });
